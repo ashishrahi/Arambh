@@ -67,11 +67,11 @@ export const forgetPassword = createAsyncThunk(
   }
 );
 //Async thunk for reset password
-export const resetPassword = createAsyncThunk('auth/resetPassword/:token',async(formData,token,{rejectWithValue}) => {
+export const resetPassword = createAsyncThunk('user/resetPassword/:token',async(formData,token,{rejectWithValue}) => {
     console.log(token);
     console.log(formData);
     try {
-      const response = await axios.post(`http://localhost:5100/api/auth/resetpassword/${token}`,formData);
+      const response = await axios.post(`http://localhost:5100/api/users/resetpassword/${token}`,formData);
       return response.data;
     } 
     catch (error) {

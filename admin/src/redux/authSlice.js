@@ -50,35 +50,8 @@ export const logout = createAsyncThunk(
     }
   }
 );
-// Async thunk for login change password
 
-// Placeholder for login change password thunk
-export const forgetPassword = createAsyncThunk(
-  'auth/forgetPassword',
-  async (adminData, { rejectWithValue }) => {
-    console.log(adminData);
-    try {
-      const response = await axios.post(`http://localhost:5100/api/auth/forgetpassword`,adminData);
-      window.location.reload('/resetpassword/');
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-//Async thunk for reset password
-export const resetPassword = createAsyncThunk('auth/resetPassword/:token',async(formData,token,{rejectWithValue}) => {
-    console.log(token);
-    console.log(formData);
-    try {
-      const response = await axios.post(`http://localhost:5100/api/auth/resetpassword/${token}`,formData);
-      return response.data;
-    } 
-    catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+
 
 
 
@@ -140,19 +113,7 @@ const authSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
-      })
-     .addCase(forgetPassword.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(forgetPassword.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.admin = action.payload;
-      })
-      .addCase(forgetPassword.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      });
-  },
+      })},
 });
 
 export const { logoutAdmin } = authSlice.actions;
