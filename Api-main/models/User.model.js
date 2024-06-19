@@ -33,7 +33,7 @@ const {mongoose} = require('mongoose');
 
      usercode:{
      type:String,
-     unique:true
+     unique:true,
      },
     token:{
     type:String,

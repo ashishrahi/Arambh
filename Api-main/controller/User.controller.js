@@ -17,6 +17,7 @@ const signupUser = async(req,res)=>{
         email:email,
         phone:phone,
         password:hashedPassword,
+        usercode:generatecode(5),
        })
     const savednewUser = await newUser.save();
    res.status(200).json({status:true,savednewUser});
