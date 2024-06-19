@@ -1,12 +1,15 @@
 const User = require('../models/User.model')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const generatecode = require('../Utilities/GenerateCode')
+const nodemailer = require('nodemailer');
+const crypto = require('crypto')
 
 //create a new User
-const createUser = async(req,res)=>{
-    const{username,email,phone,password,avatar}=req.body;
+const signupUser = async(req,res)=>{
+    const{username,email,phone,password}=req.body;
 
-    if([username,email,phone,password].some=='true'){
-        return res.status(400).json({status:false,message:'All fields are required'});
-    }
+    
     const hashedPassword = await bcrypt.hash(password,10);
     try { 
       const newUser = new User({
@@ -20,7 +23,37 @@ const createUser = async(req,res)=>{
 }catch(err) {
     res.status(500).json(err)
 }}
-
+//Login User
+const loginUser = async(req,res)=>{
+    const{username,password}= req.body;
+          try {
+            const user = await User.findOne({username: username})
+            if (!user) {
+              return res.status(404).send('User not found');
+            }
+            //compare hashed password
+            const passwordValid = bcrypt.compareSync(password,user.password)
+            if(!passwordValid) {
+              return res.status(200).send('invalid password');
+            }
+            // token generation
+              const tokenValue = jwt.sign({username:user.username},process.env.JWT_KEY,{expiresIn:'1h'});
+              user.token = tokenValue;
+              user.tokenExpiresAt = new Date(Date.now()+3600000) 
+              await user.save();
+    
+            res.status(200).json({user:{
+              userId:user.id,
+              username:user.username,
+              email:user.email,
+              token:user.token,
+              }})}
+    
+          catch (error) {
+              console.error(error);
+              res.status(500).send('Internal server error');
+          }
+          }
 
 //Forget User Password
 
@@ -196,4 +229,4 @@ const deletedUser = async(req,res)=>{
         }
         }
 
-module.exports = {getUser,getUsers,updateUser,deletedUser,createUser,forgetPassword,resetPassword,checkUser};
+module.exports = {loginUser,getUser,getUsers,updateUser,deletedUser,signupUser,forgetPassword,resetPassword,checkUser};

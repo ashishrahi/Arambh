@@ -4,16 +4,16 @@ const {mongoose} = require('mongoose');
   
     username:{
         type:String,
-        
     },
+
     avatar:{
      type:String,
     },
+
     email:{
         type:String,
-        
-       
     },
+
     password:{
       type:String,
     },
@@ -21,10 +21,15 @@ const {mongoose} = require('mongoose');
     phone:{
     type:String,
     },
+
     resetPasswordToken:{
         type:String,
     },
     resetPasswordExpires:Date,
+
+    tokenExpiresAt:{
+        type:Date,
+    },
 
      usercode:{
      type:String,

@@ -3,10 +3,14 @@ const router = express.Router();
 const User = require('../models/User.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
-const{getUser,getUsers,updateUser,deletedUser,createUser,forgetPassword,resetPassword,checkUser} = require('../controller/User.controller')
+const{loginUser,getUser,getUsers,updateUser,deletedUser,signupUser,forgetPassword,resetPassword,checkUser} = require('../controller/User.controller')
 
-//Create a new User
-router.post('/signup',createUser)
+//Signup a new User
+router.post('/signup',signupUser)
+
+//Login a User
+
+router.post('/login',loginUser)
 
 //Get a User
 router.get('/:id',getUser)
