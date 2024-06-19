@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const{getUser,getUsers,updateUser,deletedUser,createUser,forgetPassword,resetPassword,checkUser} = require('../controller/User.controller')
 
 //Create a new User
-router.post('',createUser)
+router.post('/signup',createUser)
 
 //Get a User
 router.get('/:id',getUser)
