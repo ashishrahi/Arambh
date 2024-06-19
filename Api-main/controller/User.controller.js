@@ -155,7 +155,7 @@ const forgetPassword = async (req, res) => {
 
 
 //getUser
-const getUser = async(req,res)=>{
+const profileUser = async(req,res)=>{
     try {
         const user = await User.findById(req.params.id);
         const {password,...others} = user._doc;
@@ -230,4 +230,4 @@ const deletedUser = async(req,res)=>{
         }
         }
 
-module.exports = {loginUser,getUser,getUsers,updateUser,deletedUser,signupUser,forgetPassword,resetPassword,checkUser};
+module.exports = {loginUser,profileUser,getUsers,updateUser,deletedUser,signupUser,forgetPassword,resetPassword,checkUser};
