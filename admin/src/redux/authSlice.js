@@ -34,9 +34,7 @@ export const loginAdmin = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
-    }
-  }
-);
+    }});
 
 // Async thunk for logout
 export const logout = createAsyncThunk(
@@ -66,7 +64,7 @@ const authSlice = createSlice({
       state.tokenExpiresAt=null;
       state.status='idle';
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem('admin');
     },
   },
   extraReducers: (builder) => {
@@ -76,7 +74,7 @@ const authSlice = createSlice({
       })
       .addCase(registerAdmin.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload;
+        state.admin = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(registerAdmin.rejected, (state, action) => {
@@ -115,7 +113,5 @@ const authSlice = createSlice({
         state.error = action.payload;
       })},
 });
-
 export const { logoutAdmin } = authSlice.actions;
-
 export default authSlice.reducer;
