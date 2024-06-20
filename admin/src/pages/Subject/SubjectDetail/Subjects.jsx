@@ -1,8 +1,8 @@
 import Sidebar from '../../../Components/Sidebar/Sidebar'
 import Navbar from '../../../Components/Navbar/Navbar'
 import './list.scss'
-import Datatable from '../../../datatablesource'
-const Orders = () => {
+import Datatable from './Datatable'
+const Subjects = () => {
   return (
     <div className='list' style={{display:'flex'}}>
     <Sidebar />
@@ -14,4 +14,4 @@ const Orders = () => {
   )
 }
 
-export default Orders
+export default Subjects

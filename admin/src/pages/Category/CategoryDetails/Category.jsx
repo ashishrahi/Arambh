@@ -1,7 +1,7 @@
 import Sidebar from '../../../Components/Sidebar/Sidebar'
 import Navbar from '../../../Components/Navbar/Navbar'
 import '../CategoryDetails/list.scss'
-import Datatable from '../../../datatablesource'
+import Datatable from '../../Subject/SubjectDetail/Datatable'
 const Category = () => {
   return (
     <div className='list' style={{display:'flex'}}>

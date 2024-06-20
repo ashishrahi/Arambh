@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../fetchApi/fetchApi";
 
 const initialState = {
     categories:[],
@@ -11,7 +11,7 @@ console.log(initialState.categories)
 
 export const addedCategories = createAsyncThunk('categories/addedcategories',async(categoryname)=>{
     try {
-        const response = await axios.post(`http://localhost:5100/api/category/`,{categoryname})
+        const response = await api.post(`/category/`,{categoryname})
         console.log(response.data);
       window.location.replace('/category')
         
@@ -25,7 +25,7 @@ export const addedCategories = createAsyncThunk('categories/addedcategories',asy
 
 export const fetchCategories = createAsyncThunk('categories/fetchcategories',async()=>{
 try {
-     const response = await axios.get('http://localhost:5100/api/category')
+     const response = await api.get(`/category`)
      console.log(response.data)
      return response.data;
    } 
@@ -37,7 +37,7 @@ catch (error) {
 
 export const deleteCategories = createAsyncThunk('categories/deletecategories',async(id)=>{
     try {
-        await axios.delete(`http://localhost:5100/api/category/${id}`)
+        await api.delete(`/category/${id}`)
         window.location.replace('/category')
         return id; 
     } 
@@ -48,7 +48,7 @@ export const deleteCategories = createAsyncThunk('categories/deletecategories',a
 
 export const viewCategories = createAsyncThunk('categories/viewcategories',async(id)=>{
     try {
-          const response = await axios.get(`http://localhost:5100/api/category/${id}`)
+          const response = await api.get(`/category/${id}`)
           return response.data;
     } 
     catch (error) {
@@ -58,10 +58,9 @@ export const viewCategories = createAsyncThunk('categories/viewcategories',async
 
 export const updateCategories = createAsyncThunk('categories/updatecategories',async({id,categoryname})=>{
     console.log(id)
-    console.log(categoryname)
 
     try {
-        const response = await axios.put(`http://localhost:5100/api/category/${id}`,{categoryname})
+        const response = await api.put(`/category/${id}`,{categoryname})
         window.location.replace('/category')
         console.log(response.data)
         return response.data;
@@ -71,7 +70,7 @@ export const updateCategories = createAsyncThunk('categories/updatecategories',a
 
 export const updateCategoryStatus = createAsyncThunk('categories/updateCategoryStatus', async (id) => {
         try {
-        const response = await axios.patch(`http://localhost:5100/api/category/${id}/status`);
+        const response = await api.patch(`/category/${id}/status`);
         console.log(response.data)
         return response.data;
         } 

@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../fetchApi/fetchApi";
 
 const initialState ={
     subjects:[],
@@ -11,12 +11,8 @@ console.log(initialState.subjects)
 
 //Adding Subjects
 export const addSubjects = createAsyncThunk('subjects/addsubjects',async({categoryname,subcategoryname,subjectname})=>{
-    console.log(categoryname);
-    console.log(subcategoryname);
-    console.log(subjectname);
-   
    try {
-      const response = await axios.post(`http://localhost:5100/api/subject`,{categoryname,subcategoryname,subjectname})
+      const response = await api.post(`/subject`,{categoryname,subcategoryname,subjectname})
       console.log(response.data)
       window.location.replace('/subject')
       return response.data;
@@ -27,10 +23,9 @@ export const addSubjects = createAsyncThunk('subjects/addsubjects',async({catego
 })
 
 //fetch Subjects
-export const fetchSubjects = createAsyncThunk('subjects/fetchsubjects',async()=>{
+export const fetchSubjects = createAsyncThunk(`subjects/fetchsubjects`,async()=>{
    try {
-     const response = await axios.get('http://localhost:5100/api/subject')
-     console.log(response.data)
+     const response = await api.get(`/subject`)
      return response.data;
    } catch (error) {
     console.log({message:'Error getting Subjects'})
@@ -39,7 +34,7 @@ export const fetchSubjects = createAsyncThunk('subjects/fetchsubjects',async()=>
 //delete Subjects
 export const deleteSubjects = createAsyncThunk('subjects/deletesubjects',async(id)=>{
     try {
-        await axios.delete(`http://localhost:5100/api/subject/${id}`)
+        await api.delete(`/subject/${id}`)
       window.location.replace('/subject')
     return id;
     } catch (error) {
@@ -49,7 +44,7 @@ export const deleteSubjects = createAsyncThunk('subjects/deletesubjects',async(i
 //view Subjects
 export const viewSubjects = createAsyncThunk('subjects/viewsubjects',async(id)=>{
     try {
-    const response = await axios.get(`http://localhost:5100/api/subject/${id}`)
+    const response = await api.get(`/subject/${id}`)
     return response.data;
     } catch (error) {
         console.log({message:'Error getting subjects'})
@@ -60,7 +55,7 @@ export const viewSubjects = createAsyncThunk('subjects/viewsubjects',async(id)=>
 //update Subjects
 export const updateSubjects = createAsyncThunk('subjects/updatesubjects',async({id,subjectname})=>{
     try {
-        const response = await axios.put(`http://localhost:5100/api/subject/${id}`,{subjectname})
+        const response = await api.put(`/subject/${id}`,{subjectname})
         return response.data;
     } catch (error) {
     console.log({message:'Error updating subjects'})
@@ -70,7 +65,7 @@ export const updateSubjects = createAsyncThunk('subjects/updatesubjects',async({
 export const updateSubjectsStatus = createAsyncThunk('subjects/updatesubjectstatus',async (id) => {
     console.log(id);    
     try {
-        const response = await axios.patch(`http://localhost:5100/api/subject/${id}/status`);
+        const response = await api.patch(`/subject/${id}/status`);
         return response.data;
         } 
         catch (error) {

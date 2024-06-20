@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
+import api from '../fetchApi/fetchApi';
 const initialState = {
   admin: JSON.parse(localStorage.getItem('admin')) || null,
   isAuthenticated: localStorage.getItem('token') ? true : false,
@@ -15,7 +14,7 @@ export const registerAdmin = createAsyncThunk(
   'auth/registerAdmin',
   async (adminData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`http://localhost:5100/api/auth/register`, adminData);
+      const response = await api.post(`/auth/register`, adminData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -29,7 +28,7 @@ export const loginAdmin = createAsyncThunk(
   async (adminData, { rejectWithValue }) => {
     console.log(adminData)
     try {
-      const response = await axios.post(`http://localhost:5100/api/auth/login`, adminData);
+      const response = await api.post(`/auth/login`, adminData);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -41,7 +40,7 @@ export const logout = createAsyncThunk(
   'auth/logout',
   async (token, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:5100/api/auth/logout`);
+      const response = await api.get(`/auth/logout`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

@@ -1,11 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit'
+
+import themeReducer from './themeSlice'
+import authReducer from './authSlice'
+import userReducer from './userSlice'
 import categoryReducer from './categorySlice'
 import subcategoryReducer from './subcategorySlice'
-import authReducer from './authSlice'
 import subjectReducer from './subjectSlice'
-import themeReducer from './themeSlice'
 import quizReducer from './quizSlice'
-import userReducer from './userSlice'
  export const store = configureStore({
     reducer:{
         theme:themeReducer,
@@ -15,6 +16,5 @@ import userReducer from './userSlice'
         subcategories:subcategoryReducer,
         subjects:subjectReducer,
         quiz:quizReducer,
-
-     }
+    }
  })

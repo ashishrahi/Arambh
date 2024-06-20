@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import {Button,Box} from '@mui/material';
 import { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addSubjects } from '../../../Store/subcategorySlice';
+import { addSubjects } from '../../../Store/subjectSlice';
 import { useSelector } from 'react-redux';
 import { fetchCategories } from '../../../Store/categorySlice';
 import { fetchsubCategories } from '../../../Store/subcategorySlice';

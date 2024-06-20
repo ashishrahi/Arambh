@@ -1,67 +1,64 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const initialState ={
+import api from "../fetchApi/fetchApi";
+const initialState = {
     subcategories:[],
     status:'idle',
     error:null,
 }
-
-console.log(initialState.subcategories)
+//Add Subcategory
 export const addsubCategories = createAsyncThunk('subcategories/addsubcategories',async({subcategoryname,categoryname})=>{
-    console.log(categoryname);
-    console.log(subcategoryname)
-
-    try {
-      const response = await axios.post('http://localhost:5100/api/subcategory',{subcategoryname,categoryname})
+try {
+      const response = await api.post(`/subcategory`,{subcategoryname,categoryname})
       console.log(response.data)
       window.location.replace('/subcategory')
       return response.data;
     } 
     catch (error) {
-     console.log({message:'Error adding Subcategories'})
+        console.log({message:'Error adding Subcategories'})
     }
 })
 
+// All Subcategories
 export const fetchsubCategories = createAsyncThunk('subcategories/fetchsubcategories',async()=>{
    try {
-     const response = await axios.get('http://localhost:5100/api/subcategory')
-     console.log(response.data)
+     const response = await api.get(`/subcategory`)
      return response.data;
    } catch (error) {
     console.log({message:'Error getting Subcategories'})
    }})
 
+// Delete Subcategories
 export const deletesubCategories = createAsyncThunk('subcategories/deletesubcategories',async(id)=>{
-    console.log(id)
     try {
-        await axios.delete(`http://localhost:5100/api/subcategory/${id}`)
+        await api.delete(`/subcategory/${id}`)
      return id;
     } catch (error) {
        console.log({message:'Error deleting subcategories'}) 
     } })
 
+// View Subcategories
 export const viewsubCategories = createAsyncThunk('subcategories/viewsubcategories',async(id)=>{
     try {
-    const response = await axios.get(`http://localhost:5100/api/subcategory/${id}`)
+    const response = await api.get(`/subcategory/${id}`)
     return response.data;
     } catch (error) {
         console.log({message:'Error getting subcategory'})
-    }
-   
-})
+    }})
+    
+// Update Subcategories
 export const updatesubCategories = createAsyncThunk('subcategories/updatesubcategories',async({id,subcategoryname})=>{
     try {
-        const response = await axios.put(`http://localhost:5100/api/subcategory/${id}`,{subcategoryname})
+        const response = await api.put(`/subcategory/${id}`,{subcategoryname})
         return response.data;
     } catch (error) {
     console.log({message:'Error updating subcategories'})
     }})
-    
+
+    // Update Subcategories Status
 export const updatesubCategoryStatus = createAsyncThunk('subcategories/updatesubCategoryStatus',async (id) => {
     console.log(id);    
     try {
-        const response = await axios.patch(`http://localhost:5100/api/subcategory/${id}/status`);
+        const response = await api.patch(`/subcategory/${id}/status`);
         return response.data;
         } 
         catch (error) {
@@ -106,10 +103,6 @@ const subcategorySlice = createSlice({
             const index = state.subcategories.findIndex(category => category._id === updatedsubCategory._id);
             if (index !== -1) {
               state.subcategories[index] = updatedsubCategory;
-            }
-          })
-          
-
-    }
+            }})}
 })
 export default subcategorySlice.reducer;

@@ -1,4 +1,4 @@
-import '../Users/list.scss'
+import '../SubjectDetail/list.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import {Link} from 'react-router-dom'
 import { Button } from '@mui/material';
