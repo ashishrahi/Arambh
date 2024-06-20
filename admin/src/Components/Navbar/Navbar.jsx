@@ -9,14 +9,14 @@ import Tooltip from '@mui/material/Tooltip';
 import {Box} from '@mui/material'
 import Logo from '../assets/logo.jpg'
 import { useSelector } from 'react-redux';
-import Login from '../../pages/Login/Login';
+import Login from '../../pages/Auth/Login/Login';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {logoutAdmin} from '../../redux/authSlice';
-import {toggleThemeMode } from '../../redux/themeSlice';
+import {logoutAdmin} from '../../Store/authSlice';
+import {toggleThemeMode } from '../../Store/themeSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {

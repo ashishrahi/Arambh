@@ -1,26 +1,34 @@
 import Home from "./pages/Home/Home"
-import Login from './pages/Login/Login'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
-import Users from './pages/Users/Users'
-import UserDetails from './pages/UserDetails/UserDetails'
-import NewUser from './pages/NewUser/NewUser'
+
+import Register from './pages/Auth/Register/Register'
+import Login from './pages/Auth/Login/Login'
+
+import Users from './pages/Users/UserDetails/Users'
+import UserDetails from './pages/Users/UserDetails/UserDetails'
+import NewUser from './pages/Users/NewUser/NewUser'
 import {userInputs,productInputs} from './formSource'
-import Category from "./pages/Category/Category"
-import Subcategory from "./pages/Subcategory/Subcategory"
-import NewSubcategory from './pages/NewSubcategory/NewSubcategory'
-import Subject from "./pages/Subject/Subjects"
-import NewCategory from "./pages/NewCategory/NewCategory"
-import UpdateCategory from './pages/Category/Update'
-import UpdateSubcategory from './pages/UpdateSubcategory/Updatesubcategory'
-import { useSelector } from "react-redux"
-import Register from './pages/Register/Register'
-import NewSubject from './pages/Subject/NewSubject'
-import UpdateSubject from './pages/Subject/Update'
-import './App.css'
+import ForgetPassword from './pages/Users/ForgetPassword/forgetpassword'
+import ResetPassword from './pages/Users/ResetPassword/resetpassword'
+
+import Category from "./pages/Category/CategoryDetails/Category"
+import NewCategory from "./pages/Category/NewCategory/NewCategory"
+import UpdateCategory from './pages/Category/UpdateCategory/Update'
+
+import Subcategory from "./pages/Subcategory/SubcategoryDetails/Subcategory"
+import NewSubcategory from './pages/Subcategory/NewSubcategory/NewSubcategory'
+import UpdateSubcategory from './pages/Subcategory/UpdateSubcategory/Updatesubcategory'
+
+import Subject from "./pages/Subject/SubjectDetail/Subjects"
+import NewSubject from './pages/Subject/NewSubject/NewSubject'
+import UpdateSubject from './pages/Subject/UpdateSubject/Update'
 import SubjectQuiz from './pages/SubjectQuiz/SubjectQuiz'
-import ForgetPassword from './pages/ForgetPassword/forgetpassword'
-import ResetPassword from './pages/ResetPassword/resetpassword'
 import AddQuiz from './pages/SubjectQuiz/AddQuiz'
+
+import { useSelector } from "react-redux"
+import './App.css'
+
+
 const App = () => {
   const thememode = useSelector((state) => state.theme.mode);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
