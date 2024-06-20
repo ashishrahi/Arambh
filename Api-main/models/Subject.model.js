@@ -17,10 +17,10 @@ subcategoryId:{
 type:String,
 },
 subjectname:{
-        type:String,
-        required:true,
+    type:String,
+    required:true,
     },
-    status:{
+status:{
         type:Boolean,
         debugger:true,
         
