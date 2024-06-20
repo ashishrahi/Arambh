@@ -31,7 +31,7 @@ const {mongoose} = require('mongoose');
         type:Date,
     },
 
-     usercode:{
+     Refercode:{
      type:String,
      unique:true,
      },
@@ -40,7 +40,37 @@ const {mongoose} = require('mongoose');
     },
     wallet:{
     type:String,
-    },},
+    },
+    Referby:{
+        type:String,
+    },
+    Subscription:{
+        type:mongoose.Schema.ObjectId,
+    },
+    purchaseDate:{
+        type:Date,
+    },
+    endDate:{
+        type:Date,
+    },
+    allcategory:[{
+      Category: { 
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+                },
+        Subcategory:{
+            type:mongoose.Schema,Types.ObjectId,
+             ref:'Subcategory', 
+      },
+      purchaseDate:{
+        type:Date,
+      },
+      endDate:{
+       type:Date,
+      },
+    }]
+
+},
     {timestamps:true})
 
 
