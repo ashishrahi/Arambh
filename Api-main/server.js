@@ -6,12 +6,13 @@ const usersRoute = require('./routes/users.route')
 const CategoryRoute = require('./routes/Category.route')
 const SubcategoryRoute = require('./routes/Subcategory.route')
 const SubjectRoute = require('./routes/Subject.route')
+const SubscriptionRoute = require('./routes/subscription.route')
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
 const app = express();
 var cors = require('cors') 
-const path = require('path')
+const path = require('path');
 require('dotenv').config();
 
 
@@ -48,6 +49,7 @@ app.use('/api/users',usersRoute);
 app.use('/api/category',CategoryRoute);
 app.use('/api/subcategory',SubcategoryRoute);
 app.use('/api/subject',SubjectRoute);
+app.use('/api/subscription',SubscriptionRoute)
 app.use((err,req,res,next)=>{
     const errorStatus = err.status || 500;
     const errorMessage = err.message || "Something went wrong";

@@ -59,7 +59,7 @@ const {mongoose} = require('mongoose');
         ref: 'Category',
                 },
         Subcategory:{
-            type:mongoose.Schema,Types.ObjectId,
+            type:mongoose.Schema.Types.ObjectId,
              ref:'Subcategory', 
       },
       purchaseDate:{

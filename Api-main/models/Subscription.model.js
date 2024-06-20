@@ -6,18 +6,19 @@ const Subcategory = require('./Subcategory.model');
    subscriptionname:{
     type:String,
    },
-   user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'User',
+   userId:{
+    type:String,
    },
-   cateogory:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'Category',
+   cateogoryId:{
+   type:String,
    },
-   subcategory:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'Subcategory',
+   subcategoryId:{
+    type:String,
    },
+   status:{
+    type:Boolean,
+    default:'true',
+   }
    
    },
     {timestamps:true})
