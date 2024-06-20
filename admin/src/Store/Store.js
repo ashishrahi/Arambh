@@ -7,7 +7,8 @@ import categoryReducer from './categorySlice'
 import subcategoryReducer from './subcategorySlice'
 import subjectReducer from './subjectSlice'
 import quizReducer from './quizSlice'
- export const store = configureStore({
+ 
+export const store = configureStore({
     reducer:{
         theme:themeReducer,
         auth:authReducer,
