@@ -24,7 +24,8 @@ const Navbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const themeMode = useSelector(state => state.theme.mode);
-  const admin = useSelector((state)=>state.auth)
+  const admin = useSelector((state)=>state.auth.admin)
+  console.log(admin)
   console.log(admin)
 
 

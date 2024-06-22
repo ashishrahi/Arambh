@@ -8,7 +8,7 @@ const initialState = {
 }
 console.log(initialState.categories)
 
-
+// Added Categories
 export const addedCategories = createAsyncThunk('categories/addedcategories',async(categoryname)=>{
     try {
         const response = await api.post(`/category/`,{categoryname})
@@ -22,7 +22,7 @@ export const addedCategories = createAsyncThunk('categories/addedcategories',asy
        console.log({message:'Error added category'}) 
     } })
 
-
+//All Categories
 export const fetchCategories = createAsyncThunk('categories/fetchcategories',async()=>{
 try {
      const response = await api.get(`/category`)
@@ -34,7 +34,7 @@ catch (error) {
    }
    
 })
-
+//Delete Categories
 export const deleteCategories = createAsyncThunk('categories/deletecategories',async(id)=>{
     try {
         await api.delete(`/category/${id}`)
@@ -46,6 +46,7 @@ export const deleteCategories = createAsyncThunk('categories/deletecategories',a
        console.log({message:'Error deleting categories'}) 
     } })
 
+    //view Categories
 export const viewCategories = createAsyncThunk('categories/viewcategories',async(id)=>{
     try {
           const response = await api.get(`/category/${id}`)

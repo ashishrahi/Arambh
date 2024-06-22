@@ -14,7 +14,9 @@ export const registerAdmin = createAsyncThunk(
   'auth/registerAdmin',
   async (adminData, { rejectWithValue }) => {
     try {
+      console.log(adminData)
       const response = await api.post(`/auth/register`, adminData);
+      window.location.replace('/login')
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -29,7 +31,9 @@ export const loginAdmin = createAsyncThunk(
     console.log(adminData)
     try {
       const response = await api.post(`/auth/login`, adminData);
-      console.log(response.data);
+
+      window.location.replace('/')
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

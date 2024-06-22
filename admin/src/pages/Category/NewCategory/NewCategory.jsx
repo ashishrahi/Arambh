@@ -10,7 +10,8 @@ import { addedCategories } from '../../../Store/categorySlice';
 const New = () => {
 const dispatch = useDispatch()
 
-const[categoryname,setCategoryname] = useState({})
+const[categoryname,setCategoryname] = useState()
+console.log(categoryname);
 
   const handleSubmit = async(e) => {
     e.preventDefault();

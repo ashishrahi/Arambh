@@ -10,18 +10,24 @@ const initialState = {
   tokenExpiresAt:null,
 };
 
-// Async thunk for registration
+// Adjust this import according to your project structure
+
 export const signupUser = createAsyncThunk(
   'user/signupUser',
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await api.post(`/users/signup`, userData);
+  async (data,file, { rejectWithValue }) => {
+  try {
+    console.log(data);
+    console.log(file);
+      const response = await api.post(`/users/signup`,data,file);
+      window.location.replace('/users');
       return response.data;
-    } catch (error) {
+       } 
+    catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
