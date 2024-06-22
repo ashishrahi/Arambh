@@ -9,7 +9,9 @@ const crypto = require('crypto')
 
 const registerAdmin = async(req,res)=>{
     const{username,email,password}=req.body;
+    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password,10);
+    console.log(hashedPassword);
     try { 
       const newAdmin = new Admin({
         username:username,

@@ -1,16 +1,19 @@
 const User = require('../models/User.model')
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const generatecode = require('../Utilities/GenerateCode')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto')
+const bcrypt = require('bcrypt')
+
 
 //create a new User
 const signupUser = async(req,res)=>{
-    const{username,email,phone,password}=req.body;
+    const{username,email,phone,password,country}=req.body.data;
+    console.log(req.body);
+    console.log(username)
+    const hashedPassword = await bcrypt.hash(password,10);
 
     
-    const hashedPassword = await bcrypt.hash(password,10);
     try { 
       const newUser = new User({
         username:username,
@@ -18,6 +21,8 @@ const signupUser = async(req,res)=>{
         phone:phone,
         password:hashedPassword,
         usercode:generatecode(5),
+        country:country,
+        refercode:generatecode(5),
        })
     const savednewUser = await newUser.save();
    res.status(200).json({status:true,savednewUser});
@@ -158,8 +163,7 @@ const forgetPassword = async (req, res) => {
 const profileUser = async(req,res)=>{
     try {
         const user = await User.findById(req.params.id);
-        const {password,...others} = user._doc;
-        res.status(200).json(others);
+        res.status(200).json(user);
         
     } catch (error) {
         res.status(500).json(error)

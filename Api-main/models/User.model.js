@@ -2,58 +2,72 @@ const {mongoose} = require('mongoose');
 
  const UserSchema = new mongoose.Schema({
   
-    username:{
+username:{
         type:String,
-    },
+          },
 
-    avatar:{
-     type:String,
-    },
-
-    email:{
+avatar:{
         type:String,
+       },
+
+email:{
+        type:String,
+      },
+
+password:{
+          type:String,
+         },
+
+phone:{
+       type:String,
+      },
+
+resetPasswordToken:{
+        type:String,
+      },
+    
+resetPasswordExpires:{
+    type:Date,
     },
 
-    password:{
-      type:String,
-    },
-
-    phone:{
+token:{
     type:String,
     },
 
-    resetPasswordToken:{
-        type:String,
-    },
-    resetPasswordExpires:Date,
-
-    tokenExpiresAt:{
+tokenExpiresAt:{
         type:Date,
     },
 
-     Refercode:{
+refercode:{
      type:String,
      unique:true,
      },
-    token:{
+
+token:{
     type:String,
     },
-    wallet:{
+    
+wallet:{
     type:String,
     },
-    Referby:{
+    
+Referby:{
         type:String,
     },
-    Subscription:{
+    
+Subscription:{
         type:mongoose.Schema.ObjectId,
     },
-    purchaseDate:{
+    
+purchaseDate:{
         type:Date,
     },
-    endDate:{
+
+endDate:{
         type:Date,
     },
-    allcategory:[{
+    
+allcategory:[{
       Category: { 
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -62,13 +76,19 @@ const {mongoose} = require('mongoose');
             type:mongoose.Schema.Types.ObjectId,
              ref:'Subcategory', 
       },
-      purchaseDate:{
+
+purchaseDate:{
         type:Date,
       },
-      endDate:{
+      
+endDate:{
        type:Date,
       },
-    }]
+    }],
+    status:{
+        type:Boolean,
+        default:'true',
+    },
 
 },
     {timestamps:true})
