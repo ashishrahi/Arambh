@@ -24,7 +24,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 const New = ({inputs,title}) => {
 
-const[file,setFile] = useState('')
+const[file,setFile] = useState(null)
 const[data,setData] = useState({})
 const dispatch = useDispatch('')
  console.log(data)
@@ -36,11 +36,10 @@ const value = e.target.value;
 setData({...data,[id]:value})
 }
 
-const handleAdd = async(e)=>{
+
+const handleAdd = (e)=>{
 e.preventDefault();
-console.log(data)
-console.log(file)
-dispatch(signupUser(data,file))
+dispatch(signupUser({data,file}))
 
 }
   return (
@@ -55,9 +54,9 @@ dispatch(signupUser(data,file))
        <div className="left">
         <img src={file ? URL.createObjectURL(file):{Camera}} alt="" style={{width:'100px',height:'100px', borderRadius:'50%',objectFit:'cover'}} />
        </div>
-       <div className="right" onSubmit={handleAdd}>
+       <div className="right" >
         
-        <form method='post' >
+        <form method='post'onSubmit={handleAdd} >
        <Button
       component="label"
       role={undefined}

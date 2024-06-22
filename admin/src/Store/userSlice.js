@@ -14,11 +14,9 @@ const initialState = {
 
 export const signupUser = createAsyncThunk(
   'user/signupUser',
-  async (data,file, { rejectWithValue }) => {
+  async ({data,file}, { rejectWithValue }) => {
   try {
-    console.log(data);
-    console.log(file);
-      const response = await api.post(`/users/signup`,data,file);
+      const response = await api.post(`/users/signup`,{data,file});
       window.location.replace('/users');
       return response.data;
        } 

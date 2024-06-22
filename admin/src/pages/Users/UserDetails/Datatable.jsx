@@ -1,17 +1,18 @@
 import "../UserDetails/list.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../../datatablesource";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { GridAddIcon } from "@mui/x-data-grid";
 import { GridDeleteForeverIcon } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
+import { GridToolbar } from '@mui/x-data-grid';
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Datatable = () => {
 
   const[users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
    
@@ -99,6 +100,59 @@ const Datatable = () => {
     },
   ];
 
+const userColumns = [
+    { field: "id", headerName: "ID", width: 70 },
+    {
+      field: "avatar",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <div className="cellWithImg">
+            <img className="cellImg" src={params.row.avatar} alt="avatar" style={{width:'50px'}} />
+          </div>
+        );
+      },
+    },
+    {
+      field: "username",
+      headerName: "Username",
+      width: 150,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 180,
+    },
+  
+    {
+      field: "phone",
+      headerName: "Phone",
+      width: 200,
+    },
+{
+  field: "country",
+  headerName: "Country",
+  width: 180,
+},
+
+    {
+      field: "status",
+      headerName: "Status",
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <div className={`cellWithStatus ${params.row.status}`}>
+            {params.row.status}
+          </div>
+        );
+      },
+    },
+  ];
+
+
+
+
   const userRows = users.map((user) => {
     return {
       id: user._id,
@@ -137,9 +191,9 @@ const Datatable = () => {
           </Button>
         </Link>
       </div>
-
       <DataGrid
         rows={userRows}
+        slots={{ toolbar: GridToolbar }}
         columns={userColumns.concat(actionColoumn)}
         initialState={{
           pagination: {

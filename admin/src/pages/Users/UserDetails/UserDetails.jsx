@@ -7,14 +7,13 @@ import {Stack,Box} from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import axios from 'axios'
-import { useSelector } from'react-redux';
 
 const UserDetails = () => {
 
   const [user,setUser]=useState('')
   const {id} = useParams()
   console.log(id)
-  const users = useSelector((state)=>state.auth.user)
+  console.log(user)
 
 
   useEffect(() => {
@@ -40,14 +39,14 @@ const UserDetails = () => {
             <Box className="item">
               <img  alt="" className='itemImg'    />
               <Box className="details">
-                <h1 className='itemTitle'>{users.username}</h1>
+                <h1 className='itemTitle'>{user.username}</h1>
                 <Box className="detailItem">
                   <span className='itemKey'>Email:</span>
-                  <span className='itemValue'>{users.email}</span>
+                  <span className='itemValue'>{user.email}</span>
                 </Box>
                 <Box className="detailItem">
                   <span className='itemKey'>Phone:</span>
-                  <span className='itemValue'>{users.phone}</span>
+                  <span className='itemValue'>{user.phone}</span>
                 </Box>
                 </Box>
             </Box>

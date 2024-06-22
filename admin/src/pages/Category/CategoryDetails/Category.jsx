@@ -1,7 +1,7 @@
 import Sidebar from '../../../Components/Sidebar/Sidebar'
 import Navbar from '../../../Components/Navbar/Navbar'
 import '../CategoryDetails/list.scss'
-import Datatable from '../../Subject/SubjectDetail/Datatable'
+import Datatable from '../../Category/CategoryDetails/Datatable'
 const Category = () => {
   
   return (
