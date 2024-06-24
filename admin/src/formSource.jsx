@@ -24,8 +24,14 @@
       type: "password",
     },
     {
-      id: "address",
-      label: "Address",
+      id: "house",
+      label: "House",
+      type: "text",
+      placeholder: "Elton St. 216 NewYork",
+    },
+    {
+      id: "city",
+      label: "City",
       type: "text",
       placeholder: "Elton St. 216 NewYork",
     },

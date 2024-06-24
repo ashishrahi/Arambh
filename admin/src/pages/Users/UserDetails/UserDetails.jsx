@@ -4,7 +4,7 @@ import Navbar from '../../../Components/Navbar/Navbar'
 import Chart from '../../../Components/Chart/Chart'
 import Table from '../../../Components/Table/Table'
 import {Stack,Box} from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import axios from 'axios'
 
@@ -26,7 +26,6 @@ const UserDetails = () => {
     console.log(data);
   }
 
-
   return (
     <Stack className='single' style={{display:'flex',flexDirection:'row'}}>
       <Sidebar/>
@@ -34,7 +33,7 @@ const UserDetails = () => {
         <Navbar/>
           <Box className="top"> 
           <Box className="left">
-            <Box className="editButton">Edit</Box>
+           <Link to={`/${id} /update`}> <Box className="editButton">Edit</Box></Link>
             <h1 className="title">Information</h1>
             <Box className="item">
               <img  alt="" className='itemImg'    />

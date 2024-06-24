@@ -8,6 +8,8 @@ import { fetchCategories, deleteCategories, viewCategories, updateCategoryStatus
 import { useEffect} from 'react';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 // Debounce utility function
 const debounce = (func, delay) => {
@@ -51,14 +53,14 @@ const Datatable = () => {
               <div className="viewButton"
                 onClick={() => handleView(params.row.id)}
                 style={{ display: 'flex', flexDirection: 'row' }}>
-                <span style={{ color: 'blue', cursor: 'pointer' }}>Edit</span>
+                <span style={{ color: 'blue', cursor: 'pointer' }}><EditIcon/></span>
               </div>
             </Link>
 
             <div className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
               style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer' }}>
-              <span style={{ color: 'red' }}>Delete</span>
+              <span style={{ color: 'red' }}><DeleteIcon/></span>
             </div>
 
             <div className="Status"

@@ -12,7 +12,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 const Datatable = () => {
 
   const[users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
    
@@ -69,7 +68,7 @@ const Datatable = () => {
         return (
           <div
             className="cellAction"
-            style={{ display: "flex", flexDirection:"row"}}
+            style={{ display: "flex", flexDirection:"row",gap:'20px'}}
           >
             <Link to={`/users/${params.row.id}`} style={{ textDecoration:"none"}}>
               <div
@@ -78,7 +77,7 @@ const Datatable = () => {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <VisibilityIcon sx={{ marginTop: "0.8%" }} />
-                View
+              
               </div>
             </Link>
 
@@ -92,7 +91,7 @@ const Datatable = () => {
               }}
             >
               <GridDeleteForeverIcon sx={{ marginTop: "2px" }} />
-              Delete
+            
             </div>
           </div>
         );
@@ -109,7 +108,7 @@ const userColumns = [
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={params.row.avatar} alt="avatar" style={{width:'50px'}} />
+          <img className="cellImg" src={params.row.avatar} alt="avatar" style={{width:'50px'}} />
           </div>
         );
       },
