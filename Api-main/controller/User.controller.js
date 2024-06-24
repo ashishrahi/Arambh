@@ -3,32 +3,47 @@ const jwt = require('jsonwebtoken');
 const generatecode = require('../Utilities/GenerateCode')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto')
-const bcrypt = require('bcrypt')
+const path = require('path')
+const cloudinary = require('cloudinary').v2;
+const upload = require('../middleware/multer.middleware')
+const uploadOnCloudinary = require('../Utilities/cloudinary')
 
+
+cloudinary.config({ 
+    cloud_name: "drylsvqmx", 
+    api_key: "217511642449191", 
+    api_secret: "Wwg-mZiQBph7frpZeesm6kZqMZg"
+    });
 
 //create a new User
 const signupUser = async(req,res)=>{
-    const{username,email,phone,password,country}=req.body.data;
-    console.log(req.body);
-    console.log(username)
-    const hashedPassword = await bcrypt.hash(password,10);
 
-    
-    try { 
-      const newUser = new User({
-        username:username,
-        email:email,
-        phone:phone,
-        password:hashedPassword,
-        usercode:generatecode(5),
-        country:country,
-        refercode:generatecode(5),
-       })
-    const savednewUser = await newUser.save();
-   res.status(200).json({status:true,savednewUser});
-}catch(err) {
-    res.status(500).json(err)
-}}
+    //avatar page upload
+    const result =  await cloudinary.uploader.upload(req.file.path,(error, result) => {
+      if (error) {
+        return res.status(500).json({ error: 'Failed to upload image to Cloudinary' });
+      }
+  })
+  console.log(result.url)
+  //hasing password 
+
+    //Query 
+       const newUser =  new User({
+        username:req.body.username,
+        email:req.body.email,
+        avatar:result.url,
+    })
+    console.log(newUser);
+    try {
+    const Registered = await newUser.save()
+    res.status(200).json(Registered)
+    } catch (error) {
+    res.status(500).json(error)  
+    } 
+    }
+
+
+
 //Login User
 const loginUser = async(req,res)=>{
     const{username,password}= req.body;

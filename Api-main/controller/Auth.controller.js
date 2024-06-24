@@ -10,6 +10,39 @@ const crypto = require('crypto')
 const registerAdmin = async(req,res)=>{
     const{username,email,password}=req.body;
     console.log(req.body);
+
+    //feild validation
+    if (![username, email, password].every(field => field)) {
+      return res.status(400).json({
+        message: 'Please fill all the fields'
+      });
+    }
+
+    //email validation
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        message: 'Please enter a valid email'
+      });
+    }
+
+    //password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        message: 'Please enter a valid password'
+      });
+    }
+
+    //check if admin exists
+    const existingAdmin = await Admin.findOne({email:email});
+    if (existingAdmin) {
+      return res.status(400).json({
+        message: 'Admin already exists'
+      });
+    }
+    
+    //hashed Password
     const hashedPassword = await bcrypt.hash(password,10);
     console.log(hashedPassword);
     try { 
@@ -17,7 +50,6 @@ const registerAdmin = async(req,res)=>{
         username:username,
         email:email,
         password:hashedPassword,
-
       });
       const admin = await newAdmin.save();
       res.status(200).json(admin);
@@ -26,9 +58,15 @@ const registerAdmin = async(req,res)=>{
       }}
 
 //Login Admin
-
 const loginAdmin = async(req,res)=>{
 const{username,password}= req.body;
+
+// login credentials
+if (![username, email, password].every(field => field)) {
+  return res.status(400).json({
+    message: 'Please fill all the fields'
+  });
+}
       try {
         const admin = await Admin.findOne({username: username})
         if (!admin) {
@@ -46,7 +84,6 @@ const{username,password}= req.body;
           await admin.save();
 
         res.status(200).json({admin:{
-          adminId:admin.id,
           username:admin.username,
           email:admin.email,
           token:admin.token,
@@ -62,6 +99,12 @@ const{username,password}= req.body;
 
         const logoutAdmin = async(req,res)=>{
         const{token}= req.body;
+        //token
+        if (!token) {
+          return res.status(400).json({
+            message: 'Please provide a token'
+          });
+        }
         try {
           const admin = await Admin.findOne(req.body)
           console.log(admin);

@@ -3,11 +3,14 @@ const router = express.Router();
 const User = require('../models/User.model')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
+const multer = require('multer');
+const upload = require('../middleware/multer.middleware')
+
 
 const{loginUser,profileUser,getUsers,updateUser,deletedUser,signupUser,forgetPassword,resetPassword,checkUser} = require('../controller/User.controller')
 
 //Signup a new User
-router.post('/signup',signupUser)
+router.post('/signup',upload.single('file'),signupUser)
 
 //Login a User
 

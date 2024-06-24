@@ -7,7 +7,10 @@ const {mongoose} = require('mongoose');
         type: String,
         required: true
     },
-    options: [optionSchema],
+    
+    options:{ 
+    type:[String]
+    },
 
     explanation: 
     {

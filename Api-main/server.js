@@ -7,6 +7,7 @@ const CategoryRoute = require('./routes/Category.route')
 const SubcategoryRoute = require('./routes/Subcategory.route')
 const SubjectRoute = require('./routes/Subject.route')
 const SubscriptionRoute = require('./routes/subscription.route')
+const QuizRoute = require('./routes/Quiz.route')
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
@@ -14,33 +15,21 @@ const app = express();
 var cors = require('cors') 
 const path = require('path');
 require('dotenv').config();
-
+const upload = multer({ dest: 'uploads/' });
 
 //database connection settings
 mongoose.connect('mongodb://127.0.0.1:27017/Aarambh');
 
 //middleware utilities
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/Images',express.static(path.join(__dirname,"/Images")))
 
-//utilties for image
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'Images')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null,req.body.name)
-    }
-  })
-  
-  const upload = multer({ storage: storage })
-    app.post('/api/upload',upload.single('file'),(req,res)=>{
-        res.status(200).json('File has been uploaded');
-    })
+
+ 
 
 //middleware of routes
 
@@ -49,6 +38,7 @@ app.use('/api/users',usersRoute);
 app.use('/api/category',CategoryRoute);
 app.use('/api/subcategory',SubcategoryRoute);
 app.use('/api/subject',SubjectRoute);
+app.use('/api/quiz',QuizRoute)
 app.use('/api/subscription',SubscriptionRoute)
 app.use((err,req,res,next)=>{
     const errorStatus = err.status || 500;

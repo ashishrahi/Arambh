@@ -21,7 +21,15 @@ password:{
 phone:{
        type:String,
       },
-
+house:{
+    type:String,
+},
+city:{
+    type:String,
+},
+country:{
+    type:String,
+},
 resetPasswordToken:{
         type:String,
       },
@@ -43,10 +51,6 @@ refercode:{
      unique:true,
      },
 
-token:{
-    type:String,
-    },
-    
 wallet:{
     type:String,
     },

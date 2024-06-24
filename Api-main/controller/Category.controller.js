@@ -2,6 +2,19 @@ const Category = require('../models/Category.model')
 
 //create a new category
 const createCategory = async(req,res)=>{
+const{categoryname,status}= req.body;
+
+//field validation  
+if([categoryname,status].every(field=>field)){
+    return res.status(400).json({message: 'categoryname and status is required'});
+  }
+  // category exists
+  const existingCategory = await Category.findOne({ categoryname });
+  if (existingCategory) {
+    return res.status(400).json({
+      message: 'Category already exists',
+    });
+  }
     try {
         const newCategory = new Category({
         categoryname:req.body.categoryname,
@@ -17,6 +30,11 @@ catch (error) {
 //Get a category
 const getCategory =async(req,res)=>{
     const {id} = req.params;
+    
+    //field validation
+    if (!id) {
+        return res.status(400).json({ message: 'Category id is required' });
+      }
     try {
             const aCategory = await Category.findById(req.params.id);
             res.status(200).json(aCategory);
@@ -24,12 +42,14 @@ const getCategory =async(req,res)=>{
     catch (error) {
             res.status(500).json(error)
         }}
+
 //get All Category
 const getAllCategory = async(req,res)=>{
-            try {
-                const Categories = await Category.find({});
-                res.status(200).json(Categories);
-              } catch (error) {
+  try {
+        const Categories = await Category.find({});
+        res.status(200).json(Categories);
+        } 
+        catch (error) {
                 res.status(500).json(error)}
             }
 // Update categories
