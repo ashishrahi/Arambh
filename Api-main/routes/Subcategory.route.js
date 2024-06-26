@@ -4,9 +4,9 @@ const Subcategory = require('../models/Subcategory.model')
 const Category = require('../models/Category.model')
 const createError = require('../utils/error')
 const {createSubcategory,getSubcategory,getSubcategorires,updatedsubCategory,updatedsubCategoryStatus,deletedSubcategory} = require('../controller/Subcategory.controller')
-
+const upload = require('../middleware/multer.middleware.js')
 //Create a Subcategory
-router.post('/', createSubcategory);
+router.post('/',upload.single('file') ,createSubcategory);
 
 //Get a Subcategory
 router.get('/:id',getSubcategory)

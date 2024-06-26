@@ -2,9 +2,11 @@ const express = require('express')
 const Category  = require('../models/Category.model');
 const router = express.Router();
 const {createCategory,getCategory,getAllCategory,updatedCategory,updatedStatus,deletedCategory} = require('../controller/Category.controller')
+const multer = require('multer')
+const upload = require('../middleware/multer.middleware')
 
 //Create a Category
-router.post('/',createCategory)
+router.post('/',upload.single('file'),createCategory)
 
 //Get a category
 router.get('/:id',getCategory)

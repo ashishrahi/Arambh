@@ -1,15 +1,26 @@
 const Category = require('../models/Category.model')
+const path = require('path')
+const cloudinary = require('cloudinary').v2;
+const upload = require('../middleware/multer.middleware')
+const uploadOnCloudinary = require('../Utilities/cloudinary')
+
+cloudinary.config({ 
+  cloud_name: "drylsvqmx", 
+  api_key: "217511642449191", 
+  api_secret: "Wwg-mZiQBph7frpZeesm6kZqMZg"
+  });
 
 //create a new category
-const createCategory = async(req,res)=>{
-const{categoryname,status}= req.body;
+  const createCategory = async(req,res)=>{
+  const {categoryname}= req.body;
+ 
+  //uploadImage
+  const result =  await cloudinary.uploader.upload(req.file.path);  
+ 
+  //field validation  
 
-//field validation  
-if([categoryname,status].every(field=>field)){
-    return res.status(400).json({message: 'categoryname and status is required'});
-  }
   // category exists
-  const existingCategory = await Category.findOne({ categoryname });
+  const existingCategory = await Category.findOne({categoryname});
   if (existingCategory) {
     return res.status(400).json({
       message: 'Category already exists',
@@ -17,15 +28,16 @@ if([categoryname,status].every(field=>field)){
   }
     try {
         const newCategory = new Category({
-        categoryname:req.body.categoryname,
-        status:req.body.status, 
+        categoryname:JSON.parse(categoryname),
+        categoryimage:result.url,
        })
     const savednewCategory = await newCategory.save();
    res.status(200).json({status:true,savednewCategory});
 }
 catch (error) {
    res.status(500).json(error)
-}}
+}
+}
 
 //Get a category
 const getCategory =async(req,res)=>{

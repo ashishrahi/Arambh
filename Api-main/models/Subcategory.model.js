@@ -6,6 +6,7 @@
   type:mongoose.Schema.Types.ObjectId,
   ref:'Category',
 },
+
  cateogoryId:{
  type:String,
  },
@@ -13,10 +14,16 @@
  subcategoryname:{
  type:String,
   },
+
+subcategoryimage:{
+    type:String,
+  },
+
   status:{
   type:Boolean,
   default:'true',
-    }
+  }
+
 },
 {timestamps:true}
 )

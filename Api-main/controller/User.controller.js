@@ -17,30 +17,27 @@ cloudinary.config({
 
 //create a new User
 const signupUser = async(req,res)=>{
-
-    //avatar page upload
-    const result =  await cloudinary.uploader.upload(req.file.path,(error, result) => {
-      if (error) {
-        return res.status(500).json({ error: 'Failed to upload image to Cloudinary' });
-      }
-  })
-  console.log(result.url)
-  //hasing password 
-
-    //Query 
-       const newUser =  new User({
-        username:req.body.username,
-        email:req.body.email,
+const data = JSON.parse(req.body.data)
+const{username,email,phone,city,country,house,password} = data;
+    
+    //file in cloundinary
+    const result =  await cloudinary.uploader.upload(req.file.path);  
+    console.log(result.url)
+    //hasing password
+    
+      const signupUser = new User({
+        username:username,
+        email:email,
+        phone:phone,
+        house:house,
+        city:city,
+        country:country,
         avatar:result.url,
+        password:password,
+        refercode:generatecode(5),
     })
-    console.log(newUser);
-    try {
-    const Registered = await newUser.save()
-    res.status(200).json(Registered)
-    } catch (error) {
-    res.status(500).json(error)  
-    } 
-    }
+    const savedUser = await signupUser.save()
+    res.status(200).send(savedUser)}
 
 
 
@@ -176,8 +173,10 @@ const forgetPassword = async (req, res) => {
 
 //getUser
 const profileUser = async(req,res)=>{
+    console.log(req.params)
     try {
         const user = await User.findById(req.params.id);
+        console.log(user)
         res.status(200).json(user);
         
     } catch (error) {

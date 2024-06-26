@@ -1,48 +1,42 @@
 const Subcategory = require('../models/Subcategory.model')
 const Category = require('../models/Category.model')
+const path = require('path')
+const cloudinary = require('cloudinary').v2;
+const upload = require('../middleware/multer.middleware')
+const uploadOnCloudinary = require('../Utilities/cloudinary')
 
+cloudinary.config({ 
+  cloud_name: "drylsvqmx", 
+  api_key: "217511642449191", 
+  api_secret: "Wwg-mZiQBph7frpZeesm6kZqMZg"
+  });
 
 //create a new Subcategory
 const createSubcategory = async (req, res) => {
-    const { subcategoryname, categoryname } = req.body;
-    try {
-      const searchcategory = await Category.findOne({ categoryname });
-      console.log(searchcategory)
-      if (!searchcategory) {
-        return res.status(404).json({
-          message: 'Category not found',
-        });
-      }
-     const existingSubcategory = await Subcategory.findOne({
-        subcategoryname: subcategoryname,
-        category: searchcategory._id
-      });
-  
-      if (existingSubcategory) {
-        return res.status(400).json({
-          message: 'Subcategory already exists for this category',
-        });
-      }
-  
-      // Create a new subcategory and associate it with the found category
-      const newSubcategory = new Subcategory({
-        subcategoryname: subcategoryname,
-        category: searchcategory._id
-      });
-  
-      // Save the new subcategory
-      const savedSubcategory = await newSubcategory.save();
-      
-      res.status(201).json({
-        message: 'Subcategory created successfully',
-        data: savedSubcategory
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: 'Server error',
-        error: error.message
-      });
-    }
+    const {subcategoryname,categoryname}= req.body;
+    const{file}= req.body
+
+    //for finding categoryId
+   const categoryDetails = await Category.findOne({
+    categoryname:categoryname
+   })
+       //for categoryImage
+       const result =  await cloudinary.uploader.upload(req.file.path);  
+
+   try {
+    const newSubcategory = await Subcategory({
+      subcategoryname:subcategoryname,
+
+      cateogoryId:categoryDetails._id,
+      status:true,
+      subcategoryimage:result.url,
+    })
+    const savednewSubcategory = await newSubcategory.save();
+    res.status(200).json(savednewSubcategory);
+   } catch (error) {
+    res.status(500).json({status:false,error:error.message});
+   }
+     
   }
 //get Subcategory
  const getSubcategory = async(req,res)=>{
@@ -66,21 +60,18 @@ const createSubcategory = async (req, res) => {
 //getAllSubcategory
 const getSubcategorires = async (req, res) => {
     try {
-         const subcategories = await Subcategory.find().populate('category');
-         console.log(subcategories)
-         const subcategoriesWithcategories = subcategories.map(subcategory => ({
-        _id: subcategory._id,
-         subcategoryname : subcategory.subcategoryname,
-         categoryname:subcategory.category.categoryname,
-         status:subcategory.status,
-    }));
-         res.status(200).json( subcategoriesWithcategories
-      );}  
+         const subcategories  = await Subcategory.find({}).populate('category')
+
+    //      const subcategoriesWithcategories = subcategories.map(subcategory => ({
+    //     _id: subcategory._id,
+    //      subcategoryname : subcategory.subcategoryname,
+    //      categoryname:subcategory.categoryname,
+    //      subcategoryimage:subcategory.subcategoryimage,
+    //      status:subcategory.status,
+    // }));
+         res.status(200).json( subcategories);}  
     catch (error) {
-       res.status(500).json({
-       message: 'Server error',
-       error: error.message
-      }); }}
+       res.status(500).json({message: 'Server error',error: error.message}); }}
 
   //getUpdatedsubCategory
   const updatedsubCategory = async(req,res)=>{

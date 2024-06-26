@@ -1,7 +1,27 @@
 const {mongoose} = require('mongoose');
 
  const QuizSchema = new mongoose.Schema({
-  
+  category:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Category',
+  },
+  categoryId:{
+    type:String,
+  },
+  subcategory:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Subcategory',
+  },
+  subcategoryId:{
+    type:String,
+  },
+  subject:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Subject',
+  },
+  subjectId:{
+    type:String,
+  },
     questionText: 
     {
         type: String,

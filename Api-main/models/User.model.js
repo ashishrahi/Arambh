@@ -60,8 +60,13 @@ Referby:{
     },
     
 Subscription:{
-        type:mongoose.Schema.ObjectId,
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Subscription',
     },
+
+subscriptionId:{
+    type:String,
+},
     
 purchaseDate:{
         type:Date,
@@ -76,9 +81,15 @@ allcategory:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Category',
                 },
+                categoryId:{
+                    type:String,
+                },
         Subcategory:{
             type:mongoose.Schema.Types.ObjectId,
              ref:'Subcategory', 
+      },
+      subcategoryId:{
+        type:String,
       },
 
 purchaseDate:{
